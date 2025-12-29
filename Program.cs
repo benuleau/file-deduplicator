@@ -24,7 +24,11 @@ stopwatch.Start();
 var files = Directory.GetFiles(
     path: directory,
     searchPattern: "*",
-    searchOption: SearchOption.AllDirectories);
+    enumerationOptions: new EnumerationOptions()
+    {
+        RecurseSubdirectories = true,
+        IgnoreInaccessible = true,
+    });
 
 var extensions = files
     .Select(f => Path.GetExtension(f))
