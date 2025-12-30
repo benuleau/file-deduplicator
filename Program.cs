@@ -5,7 +5,10 @@ const string differentDirectoryOption = "Different Directory";
 
 var directoryOption = AnsiConsole.Prompt(
     new SelectionPrompt<string>()
-        .Title("Search [green]current[/] or [yellow]different[/] directory?")
+        .Title(@"
+Search [blue]current[/] or [blue]different[/] directory?
+Use [grey]↑[/] and [grey]↓[/] to change selection and hit [green]<Enter>[/] to confirm."
+        )
         .AddChoices(currentDirectoryOption, differentDirectoryOption)
 );
 
@@ -15,6 +18,11 @@ var directory = directoryOption switch
     differentDirectoryOption => AnsiConsole.Ask<string>("Enter directory to search:"),
     _ => throw new InvalidOperationException(nameof(directoryOption)),
 };
+
+if (directory.EndsWith(':'))
+{
+    directory = $"{directory}\\";
+}
 
 AnsiConsole.MarkupLineInterpolated($"[green]Searching[/] {directory}");
 
@@ -46,7 +54,7 @@ foreach (var extension in extensions)
 {
     table.AddRow(
         string.IsNullOrEmpty(extension.Extension) ? "(no extension)" : extension.Extension,
-        extension.Count.ToString());
+        extension.Count.ToString("n0"));
 }
 
 AnsiConsole.Write(table);
