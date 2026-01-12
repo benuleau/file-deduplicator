@@ -29,6 +29,9 @@ var directory = directoryOption switch
     _ => throw new InvalidOperationException(nameof(directoryOption)),
 };
 
+// Windows interprets paths that end with ":" to mean "switch to the last folder the user visited
+// on this drive." instead of "switch to the root directory of this drive" like the user might expect.
+// This appends "\" to paths that end with ":" to search from the root directory.
 if (directory.EndsWith(':'))
 {
     directory = $"{directory}\\";
