@@ -1,1 +1,1 @@
-dotnet publish -c Release -r win-x64 -p PublishSingleFile=true --self-contained -p:InformationalVersion=0.0.3
+dotnet publish -c Release -r win-x64 -p PublishSingleFile=true --self-contained -p:InformationalVersion=v0.0.3
