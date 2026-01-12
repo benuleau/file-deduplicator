@@ -1,4 +1,14 @@
-﻿using Spectre.Console;
+﻿using System.Reflection;
+using Spectre.Console;
+
+AnsiConsole.MarkupLineInterpolated($"[blue]File Deduplicator[/]");
+
+var version = Assembly
+    .GetExecutingAssembly()
+    .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+    ?.InformationalVersion;
+
+AnsiConsole.MarkupLineInterpolated($"[grey]Version: {version ?? "N/A"}[/]");
 
 const string currentDirectoryOption = "Current Directory";
 const string differentDirectoryOption = "Different Directory";
@@ -7,7 +17,7 @@ var directoryOption = AnsiConsole.Prompt(
     new SelectionPrompt<string>()
         .Title(@"
 Search [blue]current[/] or [blue]different[/] directory?
-Use [grey]↑[/] and [grey]↓[/] to change selection and hit [green]<Enter>[/] to confirm."
+Use ↑ and ↓ to change selection and hit [green]<Enter>[/] to confirm."
         )
         .AddChoices(currentDirectoryOption, differentDirectoryOption)
 );
